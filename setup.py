@@ -65,7 +65,7 @@ def get_extensions():
 
 ARGS = dict(
     name="nms_pytorch",
-    version=set_version(version='0.0.3'),
+    version=set_version(version='0.0.4'),
     author="xvdp",
     description="nms from maskrcnn_benchmark",
     #install_requires=['torch', 'torchvision'],

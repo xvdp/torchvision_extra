@@ -1,1 +1,6 @@
 __pycache__/
+.vscode/
+*.so
+build/
+nms_pytorch.egg-info/
+version.py
