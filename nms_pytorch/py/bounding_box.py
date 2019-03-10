@@ -1,4 +1,10 @@
-# Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
+# Modifications to original file (which is Facebook copyrighted)
+#
+# added 'yxyx' and 'yxhw' modes
+# cannonical image.shape from all python I use, 
+# skimage, PIL, cv2, imageio is (width, shape)
+
+
 import torch
 
 # transpose
@@ -28,8 +34,8 @@ class BoxList(object):
                 "last dimenion of bbox should have a "
                 "size of 4, got {}".format(bbox.size(-1))
             )
-        if mode not in ("xyxy", "xywh"):
-            raise ValueError("mode should be 'xyxy' or 'xywh'")
+        if mode not in ("xyxy", "xywh", "yxyx", "yxhw"):
+            raise ValueError("mode should be 'xyxy', 'xywh', 'yxyx' or 'yxhw'")
 
         self.bbox = bbox
         self.size = image_size  # (image_width, image_height)
@@ -53,14 +59,14 @@ class BoxList(object):
             self.extra_fields[k] = v
 
     def convert(self, mode):
-        if mode not in ("xyxy", "xywh"):
-            raise ValueError("mode should be 'xyxy' or 'xywh'")
+        if mode not in ("xyxy", "xywh", "yxyx", "yxhw"):
+            raise ValueError("mode should be 'xyxy', 'xywh', 'yxyx' or 'yxhw'")
         if mode == self.mode:
             return self
         # we only have two modes, so don't need to check
         # self.mode
         xmin, ymin, xmax, ymax = self._split_into_xyxy()
-        if mode == "xyxy":
+        if mode in ("xyxy", "yxyx"):
             bbox = torch.cat((xmin, ymin, xmax, ymax), dim=-1)
             bbox = BoxList(bbox, self.size, mode=mode)
         else:
@@ -76,9 +82,21 @@ class BoxList(object):
         if self.mode == "xyxy":
             xmin, ymin, xmax, ymax = self.bbox.split(1, dim=-1)
             return xmin, ymin, xmax, ymax
+        elif self.mode == "yxyx":
+            ymin, xmin, ymax, xmax = self.bbox.split(1, dim=-1)
+            return xmin, ymin, xmax, ymax
         elif self.mode == "xywh":
             TO_REMOVE = 1
             xmin, ymin, w, h = self.bbox.split(1, dim=-1)
+            return (
+                xmin,
+                ymin,
+                xmin + (w - TO_REMOVE).clamp(min=0),
+                ymin + (h - TO_REMOVE).clamp(min=0),
+            )
+        elif self.mode == "yxhw":
+            TO_REMOVE = 1
+            ymin, xmin, h, w = self.bbox.split(1, dim=-1)
             return (
                 xmin,
                 ymin,

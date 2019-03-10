@@ -1,5 +1,7 @@
-#  Modified from boxlist_ops and inference from maskrcnn_benchmark
-#  Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
+#  xvdp Modifiedfrom maskrcnn_benchmark (Copyright (c) Facebook)
+# from boxlist_ops.py 
+# and inference.py 
+#   prepare_boxlist() ( from PostProcessor class )
 import torch
 
 from .bounding_box import BoxList
@@ -12,25 +14,32 @@ from .nms import nms
     #     results.append(boxlist)
     # return results
 
-def prepare_boxlist(boxes, scores, image_shape):
+def prepare_boxlist(boxes, scores, image_shape, mode="xyxy"):
     """
-    Returns BoxList from `boxes` and adds probability scores information
-    as an extra field
-    `boxes` has shape (#detections, 4 * #classes), where each row represents
-    a list of predicted bounding boxes for each of the object classes in the
-    dataset (including the background class). The detections in each row
-    originate from the same object proposal.
-    `scores` has shape (#detection, #classes), where each row represents a list
-    of object detection confidence scores for each of the object classes in the
-    dataset (including the background class). `scores[i, j]`` corresponds to the
-    box at `boxes[i, j * 4:(j + 1) * 4]`.
+    modified xvdp added argument 'mode'
+
+    Arguments:
+        `boxes`       shape (#detections, 4 * #classes)
+            each row represents a list of predicted bounding boxes
+            for each of the object classes in the dataset (including the background class).
+            The detections in each row originate from the same object proposal.
+        `scores`      shape (#detection, #classes), or (#detection) if only one class
+            each row represents a list of object detection confidence scores
+            for each of the object classes in the dataset (including the background class). 
+            `scores[i, j]` corresponds to the box at `boxes[i, j * 4:(j + 1) * 4]`.
+        `image_shape` tuple int
+        `mode`        str, "xyxy"
+
+    Returns:
+        BoxList from `boxes` and adds probability scores information as an extra field
     """
     boxes = boxes.reshape(-1, 4)
     scores = scores.reshape(-1)
-    boxlist = BoxList(boxes, image_shape, mode="xyxy")
+    boxlist = BoxList(boxes, image_shape, mode=mode)
     boxlist.add_field("scores", scores)
     return boxlist
 
+    #TODO expose
     # def filter_results(self, boxlist, num_classes):
     #     """Returns bounding-box detection results by thresholding on scores and
     #     applying non-maximum suppression (NMS).
