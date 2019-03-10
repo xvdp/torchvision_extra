@@ -48,7 +48,11 @@ def get_extensions():
 
     sources = [os.path.join(extensions_dir, s) for s in sources]
 
+    print("sources:", sources)
     include_dirs = [extensions_dir]
+    print("extensions_dir:", extensions_dir)
+    print("main_file:", main_file)
+
 
     ext_modules = [
         extension(
@@ -63,21 +67,13 @@ def get_extensions():
     return ext_modules
 
 
-ARGS = dict(
+setup(
     name="nms_pytorch",
-    version=set_version(version='0.0.5'),
+    version=set_version(version='0.0.7'),
     author="xvdp",
     description="nms from maskrcnn_benchmark",
     #install_requires=['torch', 'torchvision'],
     packages=find_packages(exclude=("tests",)),
     ext_modules=get_extensions(),
-    cmdclass={"build_ext": torch.utils.cpp_extension.BuildExtension},
-    zip_safe=False,
+    cmdclass={"build_ext": torch.utils.cpp_extension.BuildExtension}
 )
-
-try:
-    setup(**ARGS)
-except subprocess.CalledProcessError:
-    print('Failed to build extension!')
-    del ARGS['ext_modules']
-    setup(**ARGS)

@@ -7,7 +7,6 @@
 
 """
 import torch
-
 from .nms import nms
 from .boxlist_ops import prepare_boxlist
 from .boxlist_ops import boxlist_nms

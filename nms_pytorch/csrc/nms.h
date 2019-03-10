@@ -1,9 +1,9 @@
 // Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 #pragma once
-#include "cpu/vision.h"
+#include "cpu/main.h"
 
 #ifdef WITH_CUDA
-#include "cuda/vision.h"
+#include "cuda/main.h"
 #endif
 
 

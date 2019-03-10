@@ -1,8 +1,6 @@
 # nms_pytorch
 standalone version of nms included with https://github.com/facebookresearch/maskrcnn-benchmark
 
-STATUS: currently clobbers torchvision. DO NOT use until i fix this
-
 I needed non maximum suppression outside the scope of maskrcnn so I extracted the nms portion of the code and exposed the functions:
 
 ```
@@ -13,8 +11,8 @@ I needed non maximum suppression outside the scope of maskrcnn so I extracted th
 .remove_small_boxes()
 .boxlist_iou()
 ```
-This nms handles data quite elegantly. First object of class Boxlist are created
-then they are 
+### Changes to original code
+* v. 0.0.7; nms_pytorch C extensions are now installed instead of JIT loaded
 
 ## Installation
 Similar to benchmark_maskrcnn - minor differences noted here. Testing WIP.
