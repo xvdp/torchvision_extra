@@ -1,4 +1,5 @@
-# nms_pytorch
+# torchvision_xtra
+torchvision functions and not included in torchvision, including
 standalone version of nms included with https://github.com/facebookresearch/maskrcnn-benchmark
 
 I needed non maximum suppression outside the scope of maskrcnn so I extracted the nms portion of the code and exposed the functions:
