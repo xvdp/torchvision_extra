@@ -17,13 +17,13 @@ from torch.utils.cpp_extension import CUDA_HOME, CppExtension, CUDAExtension
 
 def set_version(version):
 
-    with open('nms_pytorch/version.py', 'w') as _fi:
+    with open('torchvision_extra/version.py', 'w') as _fi:
         _fi.write("version='"+version+"'")
     return version
 
 def get_extensions():
     this_dir = os.path.dirname(os.path.abspath(__file__))
-    extensions_dir = os.path.join(this_dir, "nms_pytorch", "csrc")
+    extensions_dir = os.path.join(this_dir, "torchvision_extra", "csrc")
 
     main_file = glob.glob(os.path.join(extensions_dir, "*.cpp"))
     source_cpu = glob.glob(os.path.join(extensions_dir, "cpu", "*.cpp"))
@@ -56,7 +56,7 @@ def get_extensions():
 
     ext_modules = [
         extension(
-            "nms_pytorch._C",
+            "torchvision_extra._C",
             sources,
             include_dirs=include_dirs,
             define_macros=define_macros,
@@ -68,10 +68,10 @@ def get_extensions():
 
 
 setup(
-    name="nms_pytorch",
-    version=set_version(version='0.0.7'),
+    name="torchvision_extra",
+    version=set_version(version='0.0.8'),
     author="xvdp",
-    description="nms from maskrcnn_benchmark",
+    description="extra layers to torchvision, including nms from maskrcnn_benchmark",
     #install_requires=['torch', 'torchvision'],
     packages=find_packages(exclude=("tests",)),
     ext_modules=get_extensions(),
