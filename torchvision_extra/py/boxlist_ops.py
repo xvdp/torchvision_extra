@@ -3,9 +3,9 @@
 # and inference.py 
 #   prepare_boxlist() ( from PostProcessor class )
 import torch
-
+import torchvision_extra._C as _C
 from .bounding_box import BoxList
-from .nms import nms
+_nms = _C.nms
 
 
     #     boxlist = self.prepare_boxlist(boxes_per_img, prob, image_shape)
@@ -102,7 +102,7 @@ def boxlist_nms(boxlist, nms_thresh, max_proposals=-1, score_field="scores"):
     boxlist = boxlist.convert("xyxy")
     boxes = boxlist.bbox
     score = boxlist.get_field(score_field)
-    keep = nms(boxes, score, nms_thresh)
+    keep = _nms(boxes, score, nms_thresh)
     if max_proposals > 0:
         keep = keep[: max_proposals]
     boxlist = boxlist[keep]

@@ -9,12 +9,12 @@
 import torch
 from .nms import nms
 from .boxlist_ops import prepare_boxlist
-from .boxlist_ops import boxlist_nms
+from .boxlist_ops import boxlist_nms, _nms
 from .boxlist_ops import remove_small_boxes
 from .boxlist_ops import boxlist_iou
 from .boxlist_ops import cat_boxlist
 
-__all__ = ["nms", "prepare_boxlist", "boxlist_nms", "remove_small_boxes",
+__all__ = ["nms", "_nms", "prepare_boxlist", "boxlist_nms", "remove_small_boxes",
            "boxlist_iou"]
 
 """ TODO remove unnecessary

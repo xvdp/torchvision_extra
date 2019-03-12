@@ -3,10 +3,14 @@ torchvision functions and not included in torchvision, including
 standalone version of nms included with https://github.com/facebookresearch/maskrcnn-benchmark
 
 I needed non maximum suppression outside the scope of maskrcnn so I extracted the nms portion of the code and exposed the functions:
-TODO: wrap prepareboxlist and boxlistnms into new nms function
 
 ```
-.nms()
+.nms(boxes, scores, shape, threshold, mode) 
+```
+new function, wraps prepare_boxlist() and boxlist_nms()
+TODO expand functionality
+```
+._nms() # this is the _C function : returns a mask tensor 
 .prepare_boxlist()
 .boxlist_nms()
 
@@ -14,8 +18,9 @@ TODO: wrap prepareboxlist and boxlistnms into new nms function
 .boxlist_iou()
 ```
 ### Changes to original code
-* v. 0.0.8; renamed to torchvision_extra
-* v. 0.0.7; nms_pytorch C extensions are now installed instead of JIT loaded
+* 0.0.9; added warpper function nms(), renamed original nms to _nms()
+* 0.0.8; renamed to torchvision_extra
+* 0.0.7; nms_pytorch C extensions are now installed instead of JIT loaded
 
 ## Installation
 Similar to benchmark_maskrcnn - minor differences noted here. Testing WIP.

@@ -69,7 +69,7 @@ def get_extensions():
 
 setup(
     name="torchvision_extra",
-    version=set_version(version='0.0.8'),
+    version=set_version(version='0.0.9'),
     author="xvdp",
     description="extra layers to torchvision, including nms from maskrcnn_benchmark",
     #install_requires=['torch', 'torchvision'],
