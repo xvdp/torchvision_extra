@@ -14,8 +14,8 @@ TODO: wrap prepareboxlist and boxlistnms into new nms function
 .boxlist_iou()
 ```
 ### Changes to original code
-* v. 0.0.7; nms_pytorch C extensions are now installed instead of JIT loaded
 * v. 0.0.8; renamed to torchvision_extra
+* v. 0.0.7; nms_pytorch C extensions are now installed instead of JIT loaded
 
 ## Installation
 Similar to benchmark_maskrcnn - minor differences noted here. Testing WIP.
@@ -44,10 +44,12 @@ Args:
     mode:           str, "xyxy", "yxyx", "xywh" or "yxhw"
 
 ```
->>> boxlist = nms_pytorch.prepare_boxlist(boxes, scores, image.shape, mode="xyxy")
+#python
+import torchvision_extra
+boxlist = torchvision_extra.prepare_boxlist(boxes, scores, image.shape, mode="xyxy")
 Out[*]: BoxList(num_boxes=798, image_width=399, image_height=899, mode=xyxy)
 
-filtered = nms_pytorch.boxlist_nms(boxlist, 0.5)
+filtered = torchvision_extra.boxlist_nms(boxlist, 0.5)
 Out[*]: BoxList(num_boxes=262, image_width=399, image_height=899, mode=xyxy)
 
 # filtered.bbox # unsuppressed boxes
