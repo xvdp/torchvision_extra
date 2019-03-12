@@ -17,6 +17,7 @@ I needed non maximum suppression outside the scope of maskrcnn so I extracted th
 ```
 ### Changes to original code
 * v. 0.0.7; nms_pytorch C extensions are now installed instead of JIT loaded
+* v. 0.0.8; renamed to torchvision_extra
 
 ## Installation
 Similar to benchmark_maskrcnn - minor differences noted here. Testing WIP.
@@ -31,12 +32,11 @@ conda install cudatoolkit=9 (or =10) ensure cuda tooklit matches your distributi
 # this works with either one
 conda install pytorch torchvision -c pytorch
 
-git clone https://github.com/xvdp/nms_pytorch
+git clone https://github.com/xvdp/torchvision_extra
 cd nms_pytorch
 python setup.py build develop
 ```
 ## Use instructions / Examples
-
 
 .prepare_boxlist()
 Args:
