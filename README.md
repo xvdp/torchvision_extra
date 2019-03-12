@@ -1,4 +1,4 @@
-# torchvision_xtra
+# torchvision_extra
 torchvision functions and not included in torchvision, including
 standalone version of nms included with https://github.com/facebookresearch/maskrcnn-benchmark
 
