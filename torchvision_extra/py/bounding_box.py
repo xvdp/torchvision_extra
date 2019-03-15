@@ -243,10 +243,10 @@ class BoxList(object):
 
     def area(self):
         box = self.bbox
-        if self.mode == "xyxy":
+        if self.mode in ("xyxy", "yxyx"):
             TO_REMOVE = 1
             area = (box[:, 2] - box[:, 0] + TO_REMOVE) * (box[:, 3] - box[:, 1] + TO_REMOVE)
-        elif self.mode == "xywh":
+        elif self.mode in ("xywh", "yxhw"):
             area = box[:, 2] * box[:, 3]
         else:
             raise RuntimeError("Should not be here")

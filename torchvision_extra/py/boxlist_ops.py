@@ -2,6 +2,7 @@
 # from boxlist_ops.py 
 # and inference.py 
 #   prepare_boxlist() ( from PostProcessor class )
+# added .keep extra field to boxlist class in nms_boxlist()
 import torch
 import torchvision_extra._C as _C
 from .bounding_box import BoxList
@@ -39,7 +40,7 @@ def prepare_boxlist(boxes, scores, image_shape, mode="xyxy"):
     boxlist.add_field("scores", scores)
     return boxlist
 
-    #TODO expose
+
     # def filter_results(self, boxlist, num_classes):
     #     """Returns bounding-box detection results by thresholding on scores and
     #     applying non-maximum suppression (NMS).
@@ -106,6 +107,8 @@ def boxlist_nms(boxlist, nms_thresh, max_proposals=-1, score_field="scores"):
     if max_proposals > 0:
         keep = keep[: max_proposals]
     boxlist = boxlist[keep]
+
+    boxlist.add_field('keep', keep)
     return boxlist.convert(mode)
 
 
