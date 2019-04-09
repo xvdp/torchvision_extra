@@ -37,7 +37,7 @@ conda install cudatoolkit=9 (or =10) ensure cuda tooklit matches your distributi
 conda install pytorch torchvision -c pytorch
 
 git clone https://github.com/xvdp/torchvision_extra
-cd nms_pytorch
+cd torchvision_extra
 python setup.py build develop
 ```
 ## Use instructions / Examples
