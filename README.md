@@ -1,4 +1,11 @@
+
+# Superseeded by torchvision, .nms and .iou included
+https://pytorch.org/docs/stable/torchvision/ops.html?highlight=nms#torchvision.ops.nms
+
+
+
 # torchvision_extra
+
 torchvision functions and not included in torchvision, including
 standalone version of nms included with https://github.com/facebookresearch/maskrcnn-benchmark
 
